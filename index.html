@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://credivita.com/영유아발달계산기-백분위-키몸무게-3초-체크/">
+  <meta name="author" content="credivita.com">
+  <meta name="description" content="영유아발달계산기 하나로 키, 몸무게 백분위 확인! 3초 안에 내 아이의 성장 상태를 확인하세요. 모바일에서도 쉽게 체크 가능!">
+  <meta name="keywords" content="영유아발달계산기, 성장 분석, 키 몸무게 백분위, credivita 블로그, 아이 성장 체크">
+  <meta name="robots" content="index, follow">
+  <title>영유아발달계산기｜키·몸무게 백분위 3초 체크</title>
+</head>
+<body>
+ <h1>영유아발달계산기｜키·몸무게 백분위 3초 체크</h1>
+    <div class="growth-calculator-widget">
+        <style>
+            .growth-calculator-widget {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                max-width: 800px;
+                margin: 20px auto;
+                background: #ffffff;
+                border-radius: 16px;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+                overflow: hidden;
+                border: 1px solid #e1e5f8;
+            }
+
+            .gc-header {
+                background: linear-gradient(135deg, #6665F2 0%, #7B79F7 100%);
+                color: white;
+                padding: 32px 24px;
+                text-align: center;
+                position: relative;
+            }
+
+            .gc-header .gc-title {
+                font-size: 28px;
+                margin: 0 0 8px 0;
+                font-weight: 700;
+            }
+
+            .gc-header p {
+                margin: 0;
+                opacity: 0.95;
+                font-size: 16px;
+            }
+
+            .gc-form {
+                padding: 32px 24px;
+            }
+
+            .gc-input-group {
+                margin-bottom: 24px;
+            }
+
+            .gc-label {
+                display: flex;
+                align-items: center;
+                font-weight: 600;
+                color: #374151;
+                margin-bottom: 12px;
+                font-size: 15px;
+            }
+
+            .gc-label-icon {
+                margin-right: 8px;
+                font-size: 18px;
+            }
+
+            .gc-radio-group {
+                display: flex;
+                gap: 12px;
+                flex-wrap: wrap;
+                margin-bottom: 16px;
+            }
+
+            .gc-radio-option {
+                position: relative;
+            }
+
+            .gc-radio-option input {
+                position: absolute;
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+            .gc-radio-option label {
+                display: flex;
+                align-items: center;
+                padding: 12px 20px;
+                background: #f8fafc;
+                border: 2px solid #e2e8f0;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.2s;
+                font-weight: 500;
+                font-size: 14px;
+            }
+
+            .gc-radio-option input:checked + label {
+                background: #6665F2;
+                color: white;
+                border-color: #6665F2;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(102, 101, 242, 0.3);
+            }
+
+            .gc-toggle-buttons {
+                display: flex;
+                background: #f1f5f9;
+                border-radius: 8px;
+                padding: 4px;
+                margin-bottom: 12px;
+            }
+
+            .gc-toggle-btn {
+                flex: 1;
+                padding: 8px 16px;
+                border: none;
+                background: none;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: all 0.2s;
+                font-weight: 500;
+                font-size: 14px;
+                color: #64748b;
+            }
+
+            .gc-toggle-btn.active {
+                background: #6665F2;
+                color: white;
+                box-shadow: 0 2px 4px rgba(102, 101, 242, 0.3);
+            }
+
+            .gc-input-field {
+                display: flex;
+                align-items: center;
+                background: #f8fafc;
+                border: 2px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 12px 16px;
+                transition: all 0.2s;
+            }
+
+            .gc-input-field:focus-within {
+                border-color: #6665F2;
+                box-shadow: 0 0 0 3px rgba(102, 101, 242, 0.1);
+                background: #ffffff;
+            }
+
+            .gc-input-field input {
+                flex: 1;
+                border: none;
+                background: none;
+                outline: none;
+                font-size: 15px;
+                color: #374151;
+            }
+
+            .gc-input-field input::placeholder {
+                color: #9ca3af;
+            }
+
+            .gc-input-unit {
+                color: #6665F2;
+                font-weight: 600;
+                margin-left: 8px;
+                font-size: 14px;
+            }
+
+            .gc-form-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 24px;
+            }
+
+            .gc-buttons {
+                display: flex;
+                gap: 12px;
+                justify-content: center;
+                margin-top: 32px;
+                flex-wrap: wrap;
+            }
+
+            .gc-btn {
+                padding: 14px 28px;
+                border: none;
+                border-radius: 8px;
+                font-size: 15px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s;
+                min-width: 140px;
+            }
+
+            .gc-btn-primary {
+                background: linear-gradient(135deg, #6665F2 0%, #7B79F7 100%);
+                color: white;
+            }
+
+            .gc-btn-primary:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 6px 20px rgba(102, 101, 242, 0.3);
+            }
+
+            .gc-btn-secondary {
+                background: #f8fafc;
+                color: #6665F2;
+                border: 2px solid #e2e8f0;
+            }
+
+            .gc-btn-secondary:hover {
+                background: #e2e8f0;
+            }
+
+            .gc-results {
+                display: none;
+                padding: 32px 24px;
+                background: #f8fafc;
+            }
+
+            .gc-results-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 16px;
+                margin-bottom: 24px;
+            }
+
+            .gc-result-card {
+                background: white;
+                padding: 20px;
+                border-radius: 12px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+                text-align: center;
+                transition: all 0.2s;
+                border: 1px solid #e2e8f0;
+            }
+
+            .gc-result-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            }
+
+            .gc-result-card.primary {
+                background: linear-gradient(135deg, #6665F2 0%, #7B79F7 100%);
+                color: white;
+                border: none;
+            }
+
+            .gc-result-card .gc-card-title {
+                font-size: 14px;
+                margin: 0 0 8px 0;
+                opacity: 0.8;
+                font-weight: 500;
+            }
+
+            .gc-result-card .value {
+                font-size: 24px;
+                font-weight: 700;
+                margin: 0 0 8px 0;
+                color: inherit;
+            }
+
+            .gc-result-card .status {
+                font-size: 11px;
+                padding: 6px 8px;
+                border-radius: 12px;
+                display: block;
+                font-weight: 500;
+                line-height: 1.3;
+                text-align: center;
+                margin-top: 8px;
+            }
+
+            .gc-status-normal { background: #dcfce7; color: #166534; }
+            .gc-status-warning { background: #fef3c7; color: #92400e; }
+            .gc-status-danger { background: #fecaca; color: #991b1b; }
+
+            .gc-chart {
+                background: white;
+                padding: 24px;
+                border-radius: 12px;
+                margin-top: 24px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+                border: 1px solid #e2e8f0;
+            }
+
+            .gc-chart-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 16px;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .gc-chart-title {
+                font-size: 18px;
+                font-weight: 700;
+                color: #374151;
+                margin: 0;
+            }
+
+            .gc-chart-tabs {
+                display: flex;
+                background: #f1f5f9;
+                border-radius: 6px;
+                padding: 2px;
+            }
+
+            .gc-chart-tabs button {
+                padding: 6px 12px;
+                border: none;
+                background: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: all 0.2s;
+                font-size: 13px;
+                color: #64748b;
+            }
+
+            .gc-chart-tabs button.active {
+                background: #6665F2;
+                color: white;
+            }
+
+            .gc-chart-canvas {
+                width: 100%;
+                min-height: 240px;
+                background: #f8fafc;
+                border-radius: 8px;
+                padding: 20px;
+                border: 2px dashed #e2e8f0;
+            }
+
+            .gc-chart-visual {
+                width: 100%;
+                height: 200px;
+                position: relative;
+                background: linear-gradient(to top, #f1f5f9 0%, #f8fafc 100%);
+                border-radius: 8px;
+                padding: 15px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .gc-chart-grid {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-image: 
+                    linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+                    linear-gradient(to top, #e2e8f0 1px, transparent 1px);
+                background-size: 20px 20px;
+                opacity: 0.3;
+            }
+
+            .gc-chart-bars {
+                display: flex;
+                align-items: flex-end;
+                height: 140px;
+                gap: 8px;
+                padding: 0 10px;
+                position: relative;
+                z-index: 2;
+            }
+
+            .gc-chart-bar {
+                flex: 1;
+                background: linear-gradient(to top, #6665F2, #7B79F7);
+                border-radius: 4px 4px 0 0;
+                position: relative;
+                min-height: 20px;
+                transition: all 0.3s ease;
+                opacity: 0.7;
+            }
+
+            .gc-chart-bar.current {
+                background: linear-gradient(to top, #ef4444, #f97316);
+                opacity: 1;
+                box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+            }
+
+            .gc-chart-bar.target {
+                background: linear-gradient(to top, #10b981, #059669);
+                opacity: 1;
+            }
+
+            .gc-chart-labels {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 10px;
+                font-size: 11px;
+                color: #64748b;
+                position: relative;
+                z-index: 2;
+            }
+
+            .gc-chart-y-axis {
+                position: absolute;
+                left: 0;
+                top: 15px;
+                bottom: 35px;
+                width: 30px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                font-size: 10px;
+                color: #64748b;
+                z-index: 2;
+            }
+
+            .gc-chart-legend {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 10px;
+                font-size: 12px;
+            }
+
+            .gc-legend-item {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .gc-legend-color {
+                width: 12px;
+                height: 12px;
+                border-radius: 2px;
+            }
+
+            .gc-percentile-info {
+                background: white;
+                border-radius: 8px;
+                padding: 20px;
+                margin-top: 20px;
+                border: 1px solid #e2e8f0;
+            }
+
+            .gc-percentile-row {
+                margin-bottom: 20px;
+                padding: 16px;
+                background: #f8fafc;
+                border-radius: 8px;
+                border: 1px solid #e2e8f0;
+            }
+
+            .gc-percentile-row:last-child {
+                margin-bottom: 0;
+            }
+
+            .gc-percentile-label {
+                display: block;
+                font-weight: 500;
+                color: #64748b;
+                font-size: 13px;
+                margin-bottom: 8px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .gc-percentile-value {
+                display: block;
+                font-weight: 700;
+                color: #6665F2;
+                font-size: 24px;
+                line-height: 1.2;
+            }
+
+            .gc-timeline {
+                background: white;
+                padding: 24px;
+                border-radius: 12px;
+                margin-top: 24px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+                border: 1px solid #e2e8f0;
+            }
+
+            .gc-timeline-item {
+                display: block;
+                padding: 20px 0;
+                border-left: 3px solid #e2e8f0;
+                padding-left: 20px;
+                margin-left: 12px;
+                position: relative;
+                margin-bottom: 24px;
+            }
+
+            .gc-timeline-item:last-child {
+                margin-bottom: 0;
+            }
+
+            .gc-timeline-item:before {
+                content: '';
+                position: absolute;
+                left: -8px;
+                top: 24px;
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background: #6665F2;
+                border: 3px solid white;
+                box-shadow: 0 0 0 2px #6665F2;
+            }
+
+            .gc-timeline-item.completed {
+                border-left-color: #6665F2;
+                background: linear-gradient(90deg, rgba(102, 101, 242, 0.05) 0%, transparent 100%);
+                border-radius: 8px;
+            }
+
+            .gc-timeline-content {
+                width: 100%;
+            }
+
+            .gc-timeline-age {
+                display: block;
+                font-weight: 700;
+                color: #6665F2;
+                margin-bottom: 12px;
+                font-size: 18px;
+                line-height: 1.3;
+            }
+
+            .gc-timeline-desc {
+                display: block;
+                color: #64748b;
+                font-size: 15px;
+                line-height: 1.5;
+                margin-top: 8px;
+                word-break: keep-all;
+            }
+
+            .gc-recommendations {
+                background: linear-gradient(135deg, #6665F2 0%, #7B79F7 100%);
+                color: white;
+                padding: 24px;
+                border-radius: 12px;
+                margin-top: 24px;
+            }
+
+            .gc-recommendations .gc-rec-title {
+                font-size: 18px;
+                margin: 0 0 16px 0;
+                font-weight: 600;
+            }
+
+            .gc-recommendations ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .gc-recommendations li {
+                padding: 8px 0 8px 20px;
+                position: relative;
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            .gc-recommendations li:before {
+                content: '✓';
+                position: absolute;
+                left: 0;
+                color: #a7f3d0;
+                font-weight: bold;
+            }
+
+            .gc-alert {
+                background: #fef3c7;
+                color: #92400e;
+                padding: 16px;
+                border-radius: 8px;
+                margin-top: 16px;
+                border-left: 4px solid #f59e0b;
+                font-size: 14px;
+            }
+
+            .gc-alert.danger {
+                background: #fecaca;
+                color: #991b1b;
+                border-left-color: #ef4444;
+            }
+
+            .gc-alert strong {
+                font-weight: 600;
+            }
+
+            /* 모바일 반응형 */
+            @media (max-width: 768px) {
+                .growth-calculator-widget {
+                    margin: 10px;
+                    border-radius: 12px;
+                }
+                
+                .gc-header {
+                    padding: 24px 16px;
+                }
+                
+                .gc-header h1 {
+                    font-size: 24px;
+                }
+                
+                .gc-form, .gc-results {
+                    padding: 24px 16px;
+                }
+                
+                .gc-form-grid {
+                    grid-template-columns: 1fr;
+                    gap: 16px;
+                }
+                
+                .gc-radio-group {
+                    justify-content: center;
+                }
+                
+                .gc-buttons {
+                    flex-direction: column;
+                    align-items: center;
+                }
+                
+                .gc-btn {
+                    width: 100%;
+                    max-width: 280px;
+                }
+                
+                .gc-results-grid {
+                    grid-template-columns: 1fr;
+                }
+                
+                .gc-chart-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+                
+                .gc-chart, .gc-timeline {
+                    padding: 16px;
+                }
+
+                .gc-timeline-item {
+                    padding: 16px 0;
+                    padding-left: 16px;
+                    margin-left: 8px;
+                    margin-bottom: 20px;
+                }
+
+                .gc-timeline-item:before {
+                    left: -6px;
+                    top: 20px;
+                    width: 12px;
+                    height: 12px;
+                }
+
+                .gc-timeline-age {
+                    font-size: 16px;
+                    margin-bottom: 10px;
+                    line-height: 1.2;
+                }
+
+                .gc-timeline-desc {
+                    font-size: 14px;
+                    line-height: 1.4;
+                    margin-top: 6px;
+                }
+
+                .gc-percentile-info {
+                    padding: 16px;
+                    margin-top: 16px;
+                }
+
+                .gc-percentile-row {
+                    margin-bottom: 16px;
+                    padding: 12px;
+                }
+
+                .gc-percentile-label {
+                    font-size: 12px;
+                    margin-bottom: 6px;
+                }
+
+                .gc-percentile-value {
+                    font-size: 20px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .gc-header h1 {
+                    font-size: 20px;
+                }
+                
+                .gc-result-card .value {
+                    font-size: 20px;
+                }
+                
+                .gc-chart-canvas {
+                    height: 200px;
+                    font-size: 13px;
+                }
+
+                .gc-percentile-info {
+                    padding: 12px;
+                }
+
+                .gc-percentile-row {
+                    padding: 10px;
+                    margin-bottom: 12px;
+                }
+
+                .gc-percentile-label {
+                    font-size: 11px;
+                    margin-bottom: 4px;
+                }
+
+                .gc-percentile-value {
+                    font-size: 18px;
+                }
+            }
+        </style>
+
+        <div class="gc-header">
+            <div class="gc-title">🌱 영유아 성장발달 계산기</div>
+            <p>우리 아이의 건강한 성장을 함께 확인해보세요</p>
+        </div>
+
+        <div class="gc-form">
+            <div class="gc-form-grid">
+                <!-- 성별 선택 -->
+                <div class="gc-input-group">
+                    <div class="gc-label">
+                        <span class="gc-label-icon">👶</span>
+                        성별
+                    </div>
+                    <div class="gc-radio-group">
+                        <div class="gc-radio-option">
+                            <input type="radio" id="gc-male" name="gc-gender" value="male" checked>
+                            <label for="gc-male">👦 남아</label>
+                        </div>
+                        <div class="gc-radio-option">
+                            <input type="radio" id="gc-female" name="gc-gender" value="female">
+                            <label for="gc-female">👧 여아</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 나이 입력 -->
+                <div class="gc-input-group">
+                    <div class="gc-label">
+                        <span class="gc-label-icon">📅</span>
+                        연령
+                    </div>
+                    <div class="gc-toggle-buttons">
+                        <button type="button" class="gc-toggle-btn active" onclick="gcToggleAgeInput('date')">생년월일</button>
+                        <button type="button" class="gc-toggle-btn" onclick="gcToggleAgeInput('months')">개월수</button>
+                    </div>
+                    <div class="gc-input-field" id="gc-date-input">
+                        <input type="date" id="gc-birthdate" value="2024-05-24">
+                    </div>
+                    <div class="gc-input-field" id="gc-months-input" style="display: none;">
+                        <input type="number" id="gc-ageMonths" placeholder="개월수 입력" min="0" max="227">
+                        <span class="gc-input-unit">개월</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gc-form-grid">
+                <!-- 신장 -->
+                <div class="gc-input-group">
+                    <div class="gc-label">
+                        <span class="gc-label-icon">📏</span>
+                        신장
+                    </div>
+                    <div class="gc-input-field">
+                        <input type="number" id="gc-height" placeholder="키를 입력하세요" step="0.1" min="30" max="200">
+                        <span class="gc-input-unit">cm</span>
+                    </div>
+                </div>
+
+                <!-- 체중 -->
+                <div class="gc-input-group">
+                    <div class="gc-label">
+                        <span class="gc-label-icon">⚖️</span>
+                        체중
+                    </div>
+                    <div class="gc-input-field">
+                        <input type="number" id="gc-weight" placeholder="몸무게를 입력하세요" step="0.1" min="1" max="150">
+                        <span class="gc-input-unit">kg</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gc-form-grid">
+                <!-- 머리둘레 -->
+                <div class="gc-input-group">
+                    <div class="gc-label">
+                        <span class="gc-label-icon">🧠</span>
+                        머리둘레 (선택)
+                    </div>
+                    <div class="gc-input-field">
+                        <input type="number" id="gc-headCircumference" placeholder="머리둘레를 입력하세요" step="0.1" min="25" max="65">
+                        <span class="gc-input-unit">cm</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gc-buttons">
+                <button class="gc-btn gc-btn-primary" onclick="gcCalculateGrowth()">📊 성장발달 분석</button>
+                <button class="gc-btn gc-btn-secondary" onclick="gcResetForm()">🔄 다시 입력</button>
+            </div>
+        </div>
+
+        <div class="gc-results" id="gc-resultsSection">
+            <div class="gc-results-grid" id="gc-resultsGrid">
+                <!-- 결과 카드들이 여기에 동적으로 생성됩니다 -->
+            </div>
+
+            <div class="gc-chart">
+                <div class="gc-chart-header">
+                    <div class="gc-chart-title">📈 성장 곡선 분석</div>
+                    <div class="gc-chart-tabs">
+                        <button class="active" onclick="gcSwitchChart('height')">신장</button>
+                        <button onclick="gcSwitchChart('weight')">체중</button>
+                        <button onclick="gcSwitchChart('bmi')">BMI</button>
+                    </div>
+                </div>
+                <div class="gc-chart-canvas" id="gc-chartCanvas">
+                    <div style="display: flex; align-items: center; justify-content: center; height: 240px; color: #6665F2;">
+                        성장발달 분석을 진행하면 차트가 표시됩니다
+                    </div>
+                </div>
+            </div>
+
+            <div class="gc-timeline">
+                <div class="gc-chart-title">🎯 월령별 발달 가이드</div>
+                <div id="gc-timelineContent">
+                    <!-- 발달 타임라인이 여기에 동적으로 생성됩니다 -->
+                </div>
+            </div>
+
+            <div class="gc-recommendations" id="gc-recommendationsSection">
+                <div class="gc-rec-title">💡 맞춤 추천사항</div>
+                <ul id="gc-recommendationsList">
+                    <!-- 추천사항이 여기에 동적으로 생성됩니다 -->
+                </ul>
+            </div>
+        </div>
+
+        <script>
+            // 성장 기준 데이터 (WHO 기준 간소화)
+            const gcGrowthStandards = {
+                male: {
+                    height: {
+                        3: [59.4, 61.4, 63.5], // P25, P50, P75
+                        6: [63.3, 67.6, 72.0],
+                        12: [71.0, 75.7, 80.5],
+                        24: [81.0, 86.5, 92.2],
+                        36: [88.7, 95.2, 101.7],
+                        60: [101.2, 109.9, 117.4]
+                    },
+                    weight: {
+                        3: [5.0, 6.2, 7.5],
+                        6: [6.4, 7.9, 9.8],
+                        12: [8.4, 10.2, 12.3],
+                        24: [10.5, 12.9, 15.3],
+                        36: [12.1, 14.7, 17.8],
+                        60: [15.3, 18.7, 23.0]
+                    }
+                },
+                female: {
+                    height: {
+                        3: [57.1, 59.8, 62.1],
+                        6: [61.2, 65.7, 70.2],
+                        12: [68.9, 74.0, 79.2],
+                        24: [78.4, 84.9, 91.9],
+                        36: [87.4, 94.1, 101.6],
+                        60: [99.9, 109.4, 118.1]
+                    },
+                    weight: {
+                        3: [4.5, 5.8, 7.0],
+                        6: [5.7, 7.3, 9.2],
+                        12: [7.7, 9.5, 11.7],
+                        24: [9.8, 12.3, 15.1],
+                        36: [11.6, 14.2, 17.2],
+                        60: [14.7, 18.2, 22.5]
+                    }
+                }
+            };
+
+            // 발달 마일스톤 데이터
+            const gcDevelopmentMilestones = {
+                3: "목 가누기, 옹알이 시작",
+                6: "뒤집기, 이유식 시작",
+                9: "앉기, 기어다니기",
+                12: "첫걸음, 첫 단어",
+                18: "계단 오르기, 2단어 문장",
+                24: "달리기, 간단한 문장",
+                36: "화장실 훈련, 그림 그리기",
+                48: "친구와 놀기, 알파벳 인식",
+                60: "자전거 타기, 숫자 세기"
+            };
+
+            function gcToggleAgeInput(type) {
+                const dateInput = document.getElementById('gc-date-input');
+                const monthsInput = document.getElementById('gc-months-input');
+                const buttons = document.querySelectorAll('.gc-toggle-btn');
+                
+                buttons.forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+                
+                if (type === 'date') {
+                    dateInput.style.display = 'flex';
+                    monthsInput.style.display = 'none';
+                } else {
+                    dateInput.style.display = 'none';
+                    monthsInput.style.display = 'flex';
+                }
+            }
+
+            function gcCalculateAge(birthdate) {
+                const today = new Date();
+                const birth = new Date(birthdate);
+                const months = (today.getFullYear() - birth.getFullYear()) * 12 + (today.getMonth() - birth.getMonth());
+                return Math.max(0, months);
+            }
+
+            function gcGetPercentile(value, standards) {
+                if (value <= standards[0]) return 25;
+                if (value <= standards[1]) return 50;
+                if (value <= standards[2]) return 75;
+                return 90;
+            }
+
+            function gcGetStatus(percentile) {
+                if (percentile < 25) return { class: 'gc-status-danger', text: '성장 관찰 필요' };
+                if (percentile < 75) return { class: 'gc-status-normal', text: '정상 범위' };
+                return { class: 'gc-status-normal', text: '우수' };
+            }
+
+            function gcGetNearestAgeGroup(months) {
+                const ages = [3, 6, 12, 24, 36, 60];
+                return ages.reduce((prev, curr) => 
+                    Math.abs(curr - months) < Math.abs(prev - months) ? curr : prev
+                );
+            }
+
+            function gcCalculateGrowth() {
+                const gender = document.querySelector('input[name="gc-gender"]:checked').value;
+                const birthdate = document.getElementById('gc-birthdate').value;
+                const ageMonths = document.getElementById('gc-ageMonths').value;
+                const height = parseFloat(document.getElementById('gc-height').value);
+                const weight = parseFloat(document.getElementById('gc-weight').value);
+                const headCircumference = parseFloat(document.getElementById('gc-headCircumference').value);
+
+                // 나이 계산
+                let months;
+                if (document.getElementById('gc-date-input').style.display !== 'none') {
+                    months = gcCalculateAge(birthdate);
+                } else {
+                    months = parseInt(ageMonths);
+                }
+
+                // 입력값 검증
+                if (!height || !weight || months < 0) {
+                    alert('신장과 체중은 필수 입력 항목입니다.');
+                    return;
+                }
+
+                // BMI 계산
+                const bmi = weight / Math.pow(height / 100, 2);
+
+                // 가장 가까운 연령 그룹 찾기
+                const nearestAge = gcGetNearestAgeGroup(months);
+                const standards = gcGrowthStandards[gender];
+
+                // 백분위 계산
+                const heightPercentile = gcGetPercentile(height, standards.height[nearestAge]);
+                const weightPercentile = gcGetPercentile(weight, standards.weight[nearestAge]);
+
+                // 결과 표시
+                gcDisplayResults({
+                    gender: gender === 'male' ? '👦 남아' : '👧 여아',
+                    age: `${Math.floor(months/12)}세 ${months%12}개월`,
+                    height,
+                    weight,
+                    headCircumference,
+                    bmi: bmi.toFixed(1),
+                    heightPercentile,
+                    weightPercentile,
+                    months
+                });
+            }
+
+            function gcDisplayResults(data) {
+                const resultsGrid = document.getElementById('gc-resultsGrid');
+                const resultsSection = document.getElementById('gc-resultsSection');
+                
+                // 결과 카드 생성
+                resultsGrid.innerHTML = `
+                    <div class="gc-result-card primary">
+                        <div class="gc-card-title">성별</div>
+                        <div class="value">${data.gender}</div>
+                    </div>
+                    <div class="gc-result-card primary">
+                        <div class="gc-card-title">연령</div>
+                        <div class="value">${data.age}</div>
+                    </div>
+                    <div class="gc-result-card">
+                        <div class="gc-card-title">신장</div>
+                        <div class="value">${data.height}cm</div>
+                        <div class="status ${gcGetStatus(data.heightPercentile).class}">
+                            <div style="margin-bottom: 4px;">${data.heightPercentile}%</div>
+                            <div>${gcGetStatus(data.heightPercentile).text}</div>
+                        </div>
+                    </div>
+                    <div class="gc-result-card">
+                        <div class="gc-card-title">체중</div>
+                        <div class="value">${data.weight}kg</div>
+                        <div class="status ${gcGetStatus(data.weightPercentile).class}">
+                            <div style="margin-bottom: 4px;">${data.weightPercentile}%</div>
+                            <div>${gcGetStatus(data.weightPercentile).text}</div>
+                        </div>
+                    </div>
+                    <div class="gc-result-card">
+                        <div class="gc-card-title">BMI</div>
+                        <div class="value">${data.bmi}</div>
+                        <div class="status gc-status-normal">체질량지수</div>
+                    </div>
+                    ${data.headCircumference ? `
+                    <div class="gc-result-card">
+                        <div class="gc-card-title">머리둘레</div>
+                        <div class="value">${data.headCircumference}cm</div>
+                        <div class="status gc-status-normal">정상 범위</div>
+                    </div>
+                    ` : ''}
+                `;
+
+                // 발달 타임라인 생성
+                gcGenerateTimeline(data.months);
+                
+                // 추천사항 생성
+                gcGenerateRecommendations(data);
+                
+                // 결과 섹션 표시
+                resultsSection.style.display = 'block';
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            function gcGenerateTimeline(currentMonths) {
+                const timelineContent = document.getElementById('gc-timelineContent');
+                const milestones = Object.keys(gcDevelopmentMilestones)
+                    .map(age => parseInt(age))
+                    .filter(age => age >= currentMonths - 6 && age <= currentMonths + 12)
+                    .sort((a, b) => a - b);
+
+                timelineContent.innerHTML = milestones.map(age => `
+                    <div class="gc-timeline-item ${age <= currentMonths ? 'completed' : ''}">
+                        <div class="gc-timeline-content">
+                            <div class="gc-timeline-age">${Math.floor(age/12)}세 ${age%12}개월</div>
+                            <div class="gc-timeline-desc">${gcDevelopmentMilestones[age]}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function gcGenerateRecommendations(data) {
+                const recommendationsList = document.getElementById('gc-recommendationsList');
+                const recommendationsSection = document.getElementById('gc-recommendationsSection');
+                const recommendations = [];
+
+                // 신장 기반 추천
+                if (data.heightPercentile < 25) {
+                    recommendations.push('충분한 수면과 균형잡힌 영양 섭취가 중요합니다');
+                    recommendations.push('소아과 전문의와 상담을 권장합니다');
+                } else if (data.heightPercentile > 75) {
+                    recommendations.push('우수한 성장을 보이고 있습니다');
+                }
+
+                // 체중 기반 추천
+                if (data.weightPercentile < 25) {
+                    recommendations.push('영양사와 상담하여 식단 계획을 세워보세요');
+                    recommendations.push('충분한 칼로리와 단백질 섭취를 늘려보세요');
+                } else if (data.weightPercentile > 75) {
+                    recommendations.push('적절한 신체활동을 꾸준히 해주세요');
+                }
+
+                // BMI 기반 추천
+                const bmi = parseFloat(data.bmi);
+                if (data.months >= 24) {
+                    if (bmi < 14) {
+                        recommendations.push('체중 증가를 위한 영양 관리가 필요합니다');
+                    } else if (bmi > 18) {
+                        recommendations.push('건강한 식습관과 규칙적인 운동을 권장합니다');
+                    }
+                }
+
+                // 연령별 추천
+                if (data.months < 12) {
+                    recommendations.push('정기적인 예방접종을 받아주세요');
+                    recommendations.push('모유수유나 분유 수유를 충분히 해주세요');
+                } else if (data.months < 24) {
+                    recommendations.push('다양한 이유식으로 영양소를 공급해주세요');
+                    recommendations.push('안전한 환경에서 자유롭게 탐색하도록 해주세요');
+                } else if (data.months < 60) {
+                    recommendations.push('균형잡힌 식사와 충분한 수면이 중요합니다');
+                    recommendations.push('놀이를 통한 학습과 사회성 발달을 도와주세요');
+                }
+
+                // 일반적인 추천사항
+                recommendations.push('정기적인 소아과 검진을 받아주세요');
+                recommendations.push('충분한 야외활동과 햇빛 노출을 해주세요');
+
+                // 경고 상황 체크
+                if (data.heightPercentile < 10 || data.weightPercentile < 10) {
+                    recommendationsSection.insertAdjacentHTML('afterbegin', `
+                        <div class="gc-alert danger">
+                            <strong>⚠️ 주의</strong><br>
+                            성장 곡선이 평균보다 낮습니다. 소아과 전문의와 상담을 받아보시기 바랍니다.
+                        </div>
+                    `);
+                }
+
+                recommendationsList.innerHTML = recommendations.map(rec => `<li>${rec}</li>`).join('');
+            }
+
+            function gcSwitchChart(type) {
+                const buttons = document.querySelectorAll('.gc-chart-tabs button');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+
+                const chartCanvas = document.getElementById('gc-chartCanvas');
+                
+                // 현재 결과에서 데이터 가져오기
+                const currentData = gcGetCurrentData();
+                if (!currentData) {
+                    chartCanvas.innerHTML = `
+                        <div style="display: flex; align-items: center; justify-content: center; height: 240px; color: #6665F2;">
+                            먼저 성장발달 분석을 진행해주세요
+                        </div>
+                    `;
+                    return;
+                }
+
+                gcRenderChart(type, currentData);
+            }
+
+            function gcGetCurrentData() {
+                // 결과 카드에서 현재 데이터 추출
+                const results = document.getElementById('gc-resultsGrid');
+                if (!results || results.children.length === 0) return null;
+
+                const heightCard = Array.from(results.children).find(card => 
+                    card.querySelector('.gc-card-title')?.textContent === '신장'
+                );
+                const weightCard = Array.from(results.children).find(card => 
+                    card.querySelector('.gc-card-title')?.textContent === '체중'
+                );
+                const bmiCard = Array.from(results.children).find(card => 
+                    card.querySelector('.gc-card-title')?.textContent === 'BMI'
+                );
+
+                if (!heightCard || !weightCard) return null;
+
+                const height = parseFloat(heightCard.querySelector('.value').textContent);
+                const weight = parseFloat(weightCard.querySelector('.value').textContent);
+                const bmi = parseFloat(bmiCard.querySelector('.value').textContent);
+
+                // 백분위 추출
+                const heightPercentile = parseInt(heightCard.querySelector('.status').textContent);
+                const weightPercentile = parseInt(weightCard.querySelector('.status').textContent);
+
+                return { height, weight, bmi, heightPercentile, weightPercentile };
+            }
+
+            function gcRenderChart(type, data) {
+                const chartCanvas = document.getElementById('gc-chartCanvas');
+                
+                let chartData, currentValue, currentPercentile, unit, yAxisLabels;
+                
+                switch(type) {
+                    case 'height':
+                        chartData = [45, 65, 85, 105, 125, 145]; // 신장 기준점들
+                        currentValue = data.height;
+                        currentPercentile = data.heightPercentile;
+                        unit = 'cm';
+                        yAxisLabels = ['160', '120', '80', '40'];
+                        break;
+                    case 'weight':
+                        chartData = [5, 10, 15, 20, 25, 30]; // 체중 기준점들
+                        currentValue = data.weight;
+                        currentPercentile = data.weightPercentile;
+                        unit = 'kg';
+                        yAxisLabels = ['30', '20', '10', '0'];
+                        break;
+                    case 'bmi':
+                        chartData = [12, 14, 16, 18, 20, 22]; // BMI 기준점들
+                        currentValue = data.bmi;
+                        currentPercentile = 50; // BMI는 간단하게 50%로 설정
+                        unit = '';
+                        yAxisLabels = ['25', '20', '15', '10'];
+                        break;
+                }
+
+                // 막대 높이 계산 (0-100% 범위)
+                const barHeights = chartData.map((value, index) => {
+                    const baseHeight = (value / Math.max(...chartData)) * 100;
+                    return Math.max(15, baseHeight); // 최소 높이 보장
+                });
+
+                // 현재 값에 해당하는 막대 찾기
+                const currentBarIndex = Math.floor((currentPercentile / 100) * (chartData.length - 1));
+
+                chartCanvas.innerHTML = `
+                    <div class="gc-chart-visual">
+                        <div class="gc-chart-grid"></div>
+                        <div class="gc-chart-y-axis">
+                            ${yAxisLabels.map(label => `<div>${label}</div>`).join('')}
+                        </div>
+                        <div class="gc-chart-bars">
+                            ${barHeights.map((height, index) => `
+                                <div class="gc-chart-bar ${index === currentBarIndex ? 'current' : ''}" 
+                                     style="height: ${height}%"
+                                     title="${chartData[index]}${unit}">
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="gc-chart-labels">
+                            <span>3개월</span>
+                            <span>6개월</span>
+                            <span>12개월</span>
+                            <span>24개월</span>
+                            <span>36개월</span>
+                            <span>60개월</span>
+                        </div>
+                    </div>
+                    <div class="gc-chart-legend">
+                        <div class="gc-legend-item">
+                            <div class="gc-legend-color" style="background: linear-gradient(to top, #6665F2, #7B79F7);"></div>
+                            <span>평균 범위</span>
+                        </div>
+                        <div class="gc-legend-item">
+                            <div class="gc-legend-color" style="background: linear-gradient(to top, #ef4444, #f97316);"></div>
+                            <span>현재 위치</span>
+                        </div>
+                    </div>
+                    <div class="gc-percentile-info">
+                        <div class="gc-percentile-row">
+                            <span class="gc-percentile-label">현재 ${type === 'height' ? '신장' : type === 'weight' ? '체중' : 'BMI'}</span>
+                            <span class="gc-percentile-value">${currentValue}${unit}</span>
+                        </div>
+                        <div class="gc-percentile-row">
+                            <span class="gc-percentile-label">백분위</span>
+                            <span class="gc-percentile-value">${currentPercentile}%</span>
+                        </div>
+                        <div class="gc-percentile-row">
+                            <span class="gc-percentile-label">상태</span>
+                            <span class="gc-percentile-value">${gcGetStatus(currentPercentile).text}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function gcResetForm() {
+                document.getElementById('gc-birthdate').value = '2024-05-24';
+                document.getElementById('gc-ageMonths').value = '';
+                document.getElementById('gc-height').value = '';
+                document.getElementById('gc-weight').value = '';
+                document.getElementById('gc-headCircumference').value = '';
+                document.querySelector('input[name="gc-gender"][value="male"]').checked = true;
+                document.getElementById('gc-resultsSection').style.display = 'none';
+                
+                // 날짜 입력으로 초기화
+                document.getElementById('gc-date-input').style.display = 'flex';
+                document.getElementById('gc-months-input').style.display = 'none';
+                document.querySelectorAll('.gc-toggle-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelector('.gc-toggle-btn:first-child').classList.add('active');
+                
+                // 기존 경고 메시지 제거
+                const existingAlerts = document.querySelectorAll('.gc-alert');
+                existingAlerts.forEach(alert => alert.remove());
+            }
+
+            // 페이지 로드 시 초기화
+            document.addEventListener('DOMContentLoaded', function() {
+                // 1년 전 날짜로 기본값 설정
+                const today = new Date();
+                const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+                const birthdateInput = document.getElementById('gc-birthdate');
+                if (birthdateInput) {
+                    birthdateInput.value = oneYearAgo.toISOString().split('T')[0];
+                }
+            });
+
+            // 입력 필드 실시간 검증
+            document.addEventListener('DOMContentLoaded', function() {
+                const heightInput = document.getElementById('gc-height');
+                const weightInput = document.getElementById('gc-weight');
+                const ageInput = document.getElementById('gc-ageMonths');
+
+                if (heightInput) {
+                    heightInput.addEventListener('input', function(e) {
+                        const value = parseFloat(e.target.value);
+                        const field = e.target.closest('.gc-input-field');
+                        if (value && (value < 30 || value > 200)) {
+                            field.style.borderColor = '#ef4444';
+                        } else {
+                            field.style.borderColor = '#e2e8f0';
+                        }
+                    });
+                }
+
+                if (weightInput) {
+                    weightInput.addEventListener('input', function(e) {
+                        const value = parseFloat(e.target.value);
+                        const field = e.target.closest('.gc-input-field');
+                        if (value && (value < 1 || value > 150)) {
+                            field.style.borderColor = '#ef4444';
+                        } else {
+                            field.style.borderColor = '#e2e8f0';
+                        }
+                    });
+                }
+
+                if (ageInput) {
+                    ageInput.addEventListener('input', function(e) {
+                        const value = parseInt(e.target.value);
+                        const field = e.target.closest('.gc-input-field');
+                        if (value && (value < 0 || value > 227)) {
+                            field.style.borderColor = '#ef4444';
+                        } else {
+                            field.style.borderColor = '#e2e8f0';
+                        }
+                    });
+                }
+            });
+
+            // 키보드 이벤트 처리
+            document.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const activeElement = document.activeElement;
+                    if (activeElement && activeElement.tagName === 'INPUT') {
+                        gcCalculateGrowth();
+                    }
+                }
+            });
+
+            // 폼 검증 함수
+            function gcValidateInput() {
+                const height = document.getElementById('gc-height').value;
+                const weight = document.getElementById('gc-weight').value;
+                const birthdate = document.getElementById('gc-birthdate').value;
+                const ageMonths = document.getElementById('gc-ageMonths').value;
+                
+                let isValid = true;
+                let errorMessage = '';
+
+                if (!height || height < 30 || height > 200) {
+                    errorMessage += '신장을 올바르게 입력해주세요 (30-200cm).\n';
+                    isValid = false;
+                }
+
+                if (!weight || weight < 1 || weight > 150) {
+                    errorMessage += '체중을 올바르게 입력해주세요 (1-150kg).\n';
+                    isValid = false;
+                }
+
+                // 날짜 입력 모드인지 개월수 입력 모드인지 확인
+                if (document.getElementById('gc-date-input').style.display !== 'none') {
+                    if (!birthdate) {
+                        errorMessage += '생년월일을 입력해주세요.\n';
+                        isValid = false;
+                    }
+                } else {
+                    if (!ageMonths || ageMonths < 0 || ageMonths > 227) {
+                        errorMessage += '개월수를 올바르게 입력해주세요 (0-227개월).\n';
+                        isValid = false;
+                    }
+                }
+
+                if (!isValid) {
+                    alert(errorMessage);
+                }
+
+                return isValid;
+            }
+
+            // 애니메이션 효과 추가
+            function gcAddAnimations() {
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes gcSlideIn {
+                        from {
+                            opacity: 0;
+                            transform: translateY(20px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+                    
+                    .gc-result-card {
+                        animation: gcSlideIn 0.5s ease-out forwards;
+                    }
+                    
+                    .gc-result-card:nth-child(1) { animation-delay: 0s; }
+                    .gc-result-card:nth-child(2) { animation-delay: 0.1s; }
+                    .gc-result-card:nth-child(3) { animation-delay: 0.2s; }
+                    .gc-result-card:nth-child(4) { animation-delay: 0.3s; }
+                    .gc-result-card:nth-child(5) { animation-delay: 0.4s; }
+                    .gc-result-card:nth-child(6) { animation-delay: 0.5s; }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // 초기화 시 애니메이션 추가
+            document.addEventListener('DOMContentLoaded', gcAddAnimations);
+        </script>
+    </div>
+	<div style="text-align:center; margin: 24px auto; max-width: 800px;">
+  <p style="font-size:15px; color:#374151; margin-bottom:12px;">
+    📘 본 계산기는 
+    <a href="https://credivita.com/영유아발달계산기-백분위-키몸무게-3초-체크/" 
+    style="color:#6665F2; font-weight:bold; text-decoration:none;">
+    credivita.com 블로그 포스트</a>에 기반하여 제작되었습니다.
+  </p>
+  <a href="https://credivita.com" 
+     style="display:inline-block; background:#6665F2; color:white; padding:12px 24px; border-radius:8px; font-weight:bold; text-decoration:none;">
+    🔗 credivita.com 홈 바로가기
+  </a>
+</div>
+</body>
+</html>
