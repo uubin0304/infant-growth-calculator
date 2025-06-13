@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://uubin0304.github.io/infant-growth-calculator/sitemap.xml
